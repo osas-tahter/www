@@ -1,0 +1,11 @@
+# requirement for the project
+setuptools
+flask
+flask-cors
+jinja2
+requests
+pydantic
+pydantic-settings
+pyecharts
+watchdog
+python-jose

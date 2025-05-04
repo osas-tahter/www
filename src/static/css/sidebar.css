@@ -1,0 +1,418 @@
+/* Modern Berry-Style Sidebar */
+.sidebar {
+    background: #ffffff;
+    min-height: 100vh;
+    width: 260px;
+    transition: all 0.3s ease;
+    color: #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    overflow-y: auto;
+    position: relative;
+    z-index: 100;
+    padding: 1rem 0;
+}
+
+/* Custom scrollbar */
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+/* Collapsed state */
+.sidebar.collapsed {
+    width: 70px;
+    padding: 0; /* Loại bỏ padding hoàn toàn */
+    margin: 0; /* Loại bỏ margin */
+}
+
+/* Brand/logo area */
+.sidebar-brand {
+    padding: 1rem 1.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.sidebar-brand .brand-logo {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #006400;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-brand .brand-logo i {
+    font-size: 1.75rem;
+    margin-right: 10px;
+    color: #006400;
+}
+
+/* Brand in collapsed state */
+.sidebar.collapsed .brand-text {
+    display: none;
+}
+
+/* Section headers */
+.sidebar-section {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #777;
+    margin-top: 1rem;
+}
+
+/* Menu items */
+.nav-item.menu-item {
+    margin: 0.25rem 0.75rem;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    overflow: visible;
+    position: relative;
+}
+
+.nav-item.menu-item:hover {
+    background-color: rgba(0, 100, 0, 0.05);
+}
+
+.nav-item.menu-item.active {
+    background-color: rgba(0, 100, 0, 0.08);
+}
+
+/* Menu links */
+.nav-link.menu-link,
+.menu-toggle {
+    color: #555;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    position: relative;
+    text-decoration: none;
+    height: 48px;
+}
+
+.nav-link.menu-link:hover,
+.menu-toggle:hover {
+    color: #006400;
+}
+
+.nav-link.menu-link.active,
+.menu-toggle.active {
+    color: #006400;
+    font-weight: 600;
+    background-color: rgba(0, 100, 0, 0.08);
+}
+
+/* Menu icons */
+.nav-link.menu-link i,
+.menu-toggle i {
+    font-size: 1.25rem;
+    min-width: 24px;
+    text-align: center;
+    margin-right: 12px;
+    color: #888;
+    transition: all 0.2s ease;
+}
+
+.nav-link.menu-link:hover i,
+.menu-toggle:hover i,
+.nav-link.menu-link.active i,
+.menu-toggle.active i {
+    color: #006400;
+}
+
+/* Menu text */
+.menu-text {
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.2px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    flex-grow: 1;
+}
+
+/* Hide text in collapsed state */
+.sidebar.collapsed .menu-text {
+    opacity: 0;
+    width: 0;
+    display: none;
+}
+
+/* Dropdown icon */
+.dropdown-icon {
+    position: absolute;
+    right: 15px;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    color: #aaa;
+}
+
+/* Hide dropdown icon in collapsed state */
+.sidebar.collapsed .dropdown-icon {
+    opacity: 0;
+    width: 0;
+    display: none;
+}
+
+/* Rotate when expanded */
+.menu-item[aria-expanded="true"] .dropdown-icon {
+    transform: rotate(-180deg);
+}
+
+/* Remove duplicate icons */
+.menu-toggle > .fa-chevron-right,
+.menu-link > .fa-chevron-right {
+    display: none !important;
+}
+
+/* Submenu */
+.submenu {
+    list-style: none;
+    padding-left: 3rem !important;
+    margin: 0 0.5rem;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    max-height: 0;
+}
+
+.submenu.show {
+    max-height: 500px;
+    margin-bottom: 0.5rem;
+}
+
+/* Submenu links */
+.submenu-link {
+    color: #666;
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    margin: 0.25rem 0;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    position: relative;
+    height: 38px;
+}
+
+.submenu-link:before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #ccc;
+    transition: all 0.2s ease;
+}
+
+.submenu-link:hover {
+    color: #006400;
+    background-color: rgba(0, 100, 0, 0.05);
+}
+
+.submenu-link:hover:before {
+    background-color: #006400;
+}
+
+.submenu-link.active {
+    color: #ffffff;
+    font-weight: 500;
+    background-color: #004d00; /* Màu xanh đậm hơn để nổi bật */
+}
+
+.submenu-link.active:before {
+    background-color: #ffffff;
+    width: 5px;
+    height: 5px;
+}
+
+/* Popup menu for collapsed state */
+.popup-menu {
+    position: absolute;
+    left: 70px;
+    top: 0;
+    min-width: 200px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    pointer-events: none;
+    padding: 0.5rem 0;
+}
+
+.popup-menu.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.popup-menu .popup-header {
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    color: #444;
+}
+
+.popup-menu .popup-item {
+    padding: 0.6rem 1rem;
+    color: #555;
+    font-size: 0.9rem;
+    display: block;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.popup-menu .popup-item:hover {
+    background-color: rgba(0, 100, 0, 0.05);
+    color: #006400;
+}
+
+/* Content area */
+.content-area {
+    width: calc(100% - 260px);
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+}
+
+.content-area.expanded {
+    width: calc(100% - 70px);
+}
+
+/* Responsive behavior */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 70px;
+    }
+    
+    .sidebar .menu-text,
+    .sidebar .dropdown-icon,
+    .sidebar .brand-text {
+        display: none;
+    }
+    
+    .sidebar.expanded {
+        width: 260px;
+        position: absolute;
+        height: 100%;
+        z-index: 1050;
+    }
+    
+    .sidebar.expanded .menu-text,
+    .sidebar.expanded .dropdown-icon,
+    .sidebar.expanded .brand-text {
+        display: block;
+        opacity: 1;
+        width: auto;
+    }
+    
+    .content-area {
+        width: calc(100% - 70px);
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 0;
+        position: absolute;
+        z-index: 1050;
+    }
+    
+    .sidebar.expanded {
+        width: 260px;
+    }
+    
+    .content-area {
+        width: 100%;
+    }
+}
+
+.dropdown-toggle::after {
+    content: none;
+}
+
+/* Fix for centering sidebar icons in collapsed state */
+.sidebar.collapsed .nav-link.menu-link i,
+.sidebar.collapsed .menu-toggle i {
+    margin: 0; /* Loại bỏ mọi margin để tránh lệch */
+    padding: 0; /* Loại bỏ padding */
+    text-align: center;
+    width: 100%;
+    font-size: 1.4rem; /* Giữ kích thước icon */
+    line-height: 1; /* Đảm bảo không có khoảng cách thừa theo chiều dọc */
+    display: flex; /* Sử dụng flex để căn giữa trong chính icon */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Center icon position in collapsed state */
+.sidebar.collapsed .nav-item.menu-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0; /* Loại bỏ margin */
+    padding: 0; /* Loại bỏ padding */
+}
+
+/* Đảm bảo menu link và toggle chiếm toàn bộ không gian và căn giữa */
+.sidebar.collapsed .nav-link.menu-link,
+.sidebar.collapsed .menu-toggle {
+    padding: 0; /* Loại bỏ padding để tránh lệch */
+    margin: 0; /* Loại bỏ margin */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 48px; /* Đảm bảo chiều cao cố định */
+    display: flex; /* Đảm bảo sử dụng flexbox */
+}
+
+/* Ensure menu text is properly hidden in collapsed state */
+.sidebar.collapsed .menu-text,
+.sidebar.collapsed span:not(.dropdown-icon) {
+    display: none;
+    width: 0;
+    opacity: 0;
+}
+
+/* Ensure dropdown items and text are hidden when sidebar is collapsed */
+.sidebar.collapsed .submenu,
+.sidebar.collapsed .dropdown-toggle span,
+.sidebar.collapsed .menu-toggle span {
+    display: none !important;
+}
+
+/* Make sure submenus properly collapse when sidebar is collapsed */
+.sidebar.collapsed .submenu.show {
+    max-height: 0;
+    margin: 0;
+    padding: 0 !important;
+    overflow: hidden;
+    display: none !important;
+}
+
+/* Improve transition for collapsing submenu */
+.submenu {
+    transition: all 0.2s ease;
+}
